@@ -1,0 +1,96 @@
+--- a/neil-server/build.gradle.kts
++++ b/neil-server/build.gradle.kts
+@@ -57,9 +_,47 @@
+             outputDir = rootDirectory.dir("purpur-server")
+         }
+     }
+-    activeFork = neil
++    //activeFork = neil
+     // Neil end - Rebrand
+ 
++    // MultiNeil start - Rebrand
++    val multineil = forks.register("multineil") {
++        forks = neil
++        upstream.patchRepo("paperServer") {
++            upstreamRepo = purpur.patchedRepo("paperServer")
++            patchesDir = rootDirectory.dir("multineil-server/paper-patches")
++            outputDir = rootDirectory.dir("paper-server")
++        }
++        upstream.patchDir("purpurServer") {
++            upstreamPath = "purpur-server"
++            excludes = setOf(
++                "src/minecraft",
++                "paper-patches",
++                "minecraft-patches",
++                "build.gradle.kts",
++                "build.gradle.kts.patch"
++            )
++            patchesDir = rootDirectory.dir("multineil-server/purpur-patches")
++            outputDir = rootDirectory.dir("purpur-server")
++        }
++        upstream.patchDir("neilServer") {
++            upstreamPath = "neil-server"
++            excludes = setOf(
++                "src/minecraft",
++                "paper-patches",
++                "purpur-patches",
++                "minecraft-patches",
++                "build.gradle.kts",
++                "build.gradle.kts.patch"
++            )
++            patchesDir = rootDirectory.dir("multineil-server/neil-patches")
++            outputDir = rootDirectory.dir("neil-server")
++        }
++    }
++    activeFork = multineil
++    // MultiNeil end
++
++
+     spigot {
+         enabled = true
+         buildDataRef = "42d18d4c4653ffc549778dbe223f6994a031d69e"
+@@ -148,12 +_,16 @@
+         resources { srcDir("../paper-server/src/main/resources") }
+         java { srcDir("../purpur-server/src/main/java") }
+         resources { srcDir("../purpur-server/src/main/resources") }
++        java { srcDir("../neil-server/src/main/java") }
++        resources { srcDir("../neil-server/src/main/resources") }
+     }
+     test {
+         java { srcDir("../paper-server/src/test/java") }
+         resources { srcDir("../paper-server/src/test/resources") }
+         java { srcDir("../purpur-server/src/test/java") }
+         resources { srcDir("../purpur-server/src/test/resources") }
++        java { srcDir("../neil-server/src/test/java") }
++        resources { srcDir("../neil-server/src/test/resources") }
+     }
+ }
+ val log4jPlugins = sourceSets.create("log4jPlugins") {
+@@ -182,7 +_,7 @@
+ }
+ 
+ dependencies {
+-    implementation(project(":neil-api")) // Purpur // Neil
++    implementation(project(":multineil-api")) // Purpur // Neil
+     implementation("ca.spottedleaf:concurrentutil:0.0.5")
+     implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
+     implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
+@@ -256,14 +_,14 @@
+         val gitBranch = git.exec(providers, "rev-parse", "--abbrev-ref", "HEAD").get().trim()
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+-            "Implementation-Title" to "Neil", // Purpur // Neil
++            "Implementation-Title" to "MultiNeil", // Purpur // Neil
+             "Implementation-Version" to implementationVersion,
+             "Implementation-Vendor" to date,
+-            "Specification-Title" to "Neil", // Purpur // Neil
++            "Specification-Title" to "MultiNeil", // Purpur // Neil
+             "Specification-Version" to project.version,
+             "Specification-Vendor" to "En-V Arcade", // Purpur // Neil
+-            "Brand-Id" to "envarcade:neil", // Purpur // Neil
+-            "Brand-Name" to "Neil", // Purpur // Neil
++            "Brand-Id" to "envarcade:multineil", // Purpur // Neil
++            "Brand-Name" to "MultiNeil", // Purpur // Neil
+             "Build-Number" to (build ?: ""),
+             "Build-Time" to buildTime.toString(),
+             "Git-Branch" to gitBranch,
