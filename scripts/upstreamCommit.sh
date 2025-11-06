@@ -13,8 +13,8 @@ neil=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/r
 
 updated=""
 logsuffix=""
-if [ ! -z "$purpur" ]; then
-    logsuffix="$logsuffix\n\nNeil Changes:\n$purpur"
+if [ ! -z "$neil" ]; then
+    logsuffix="$logsuffix\n\nNeil Changes:\n$neil"
     updated="Neil"
 fi
 disclaimer="Upstream has released updates that appear to apply and compile correctly"
