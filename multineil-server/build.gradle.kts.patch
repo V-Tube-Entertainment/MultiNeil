@@ -1,34 +1,25 @@
 --- a/neil-server/build.gradle.kts
 +++ b/neil-server/build.gradle.kts
-@@ -57,9 +_,47 @@
+@@ -57,8 +_,35 @@
              outputDir = rootDirectory.dir("purpur-server")
          }
      }
 -    activeFork = neil
 +    //activeFork = neil
      // Neil end - Rebrand
- 
-+    // MultiNeil start - Rebrand
 +    val multineil = forks.register("multineil") {
 +        forks = neil
 +        upstream.patchRepo("paperServer") {
-+            upstreamRepo = purpur.patchedRepo("paperServer")
++            upstreamRepo = neil.patchedRepo("paperServer")
 +            patchesDir = rootDirectory.dir("multineil-server/paper-patches")
 +            outputDir = rootDirectory.dir("paper-server")
 +        }
-+        upstream.patchDir("purpurServer") {
-+            upstreamPath = "purpur-server"
-+            excludes = setOf(
-+                "src/minecraft",
-+                "paper-patches",
-+                "minecraft-patches",
-+                "build.gradle.kts",
-+                "build.gradle.kts.patch"
-+            )
++        upstream.patchRepo("purpurServer") {
++            upstreamRepo = neil.patchedRepo("purpurServer")
 +            patchesDir = rootDirectory.dir("multineil-server/purpur-patches")
 +            outputDir = rootDirectory.dir("purpur-server")
 +        }
-+        upstream.patchDir("neilServer") {
++        upstream.patchDir("neil") {
 +            upstreamPath = "neil-server"
 +            excludes = setOf(
 +                "src/minecraft",
@@ -43,12 +34,9 @@
 +        }
 +    }
 +    activeFork = multineil
-+    // MultiNeil end
-+
-+
+ 
      spigot {
          enabled = true
-         buildDataRef = "42d18d4c4653ffc549778dbe223f6994a031d69e"
 @@ -148,12 +_,16 @@
          resources { srcDir("../paper-server/src/main/resources") }
          java { srcDir("../purpur-server/src/main/java") }
@@ -89,7 +77,7 @@
              "Specification-Vendor" to "En-V Arcade", // Purpur // Neil
 -            "Brand-Id" to "envarcade:neil", // Purpur // Neil
 -            "Brand-Name" to "Neil", // Purpur // Neil
-+            "Brand-Id" to "envarcade:multineil", // Purpur // Neil
++            "Brand-Id" to "envarcade:Muitineil", // Purpur // Neil
 +            "Brand-Name" to "MultiNeil", // Purpur // Neil
              "Build-Number" to (build ?: ""),
              "Build-Time" to buildTime.toString(),
