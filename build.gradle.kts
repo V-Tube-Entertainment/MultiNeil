@@ -28,9 +28,8 @@ paperweight {
             patchesDir = file("multineil-api/paper-patches")
             outputDir = file("paper-api")
         }
-        patchDir("purpurApi") {
+        patchRepo("pupurApi") {
             upstreamPath = "purpur-api"
-            excludes = listOf("build.gradle.kts", "build.gradle.kts.patch", "paper-patches")
             patchesDir = file("multineil-api/purpur-patches")
             outputDir = file("purpur-api")
         }
