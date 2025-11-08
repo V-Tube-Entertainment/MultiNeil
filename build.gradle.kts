@@ -85,8 +85,8 @@ subprojects {
 
     extensions.configure<PublishingExtension> {
         repositories {
-            maven("https://repo.purpurmc.org/snapshots") {
-                name = "multineil"
+            maven("https://nexus.envarcade.dev/repository/envarcade/") {
+                name = "envarcade"
                 credentials(PasswordCredentials::class)
             }
         }
