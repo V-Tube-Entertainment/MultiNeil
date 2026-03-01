@@ -56,6 +56,7 @@ subprojects {
     repositories {
         mavenCentral()
         maven(paperMavenPublicUrl)
+        maven("https://nexus.envarcade.dev/repository/envarcade/")
     }
 
     tasks.withType<AbstractArchiveTask>().configureEach {

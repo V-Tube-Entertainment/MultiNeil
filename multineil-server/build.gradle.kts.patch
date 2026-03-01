@@ -56,12 +56,13 @@
      }
  }
  val log4jPlugins = sourceSets.create("log4jPlugins") {
-@@ -182,7 +_,7 @@
+@@ -182,7 +_,8 @@
  }
  
  dependencies {
 -    implementation(project(":neil-api")) // Purpur // Neil
 +    implementation(project(":multineil-api")) // Purpur // Neil
++    implementation("com.envarcade.multineil-mastermessagingprotocol:1.0.0")
      implementation("ca.spottedleaf:concurrentutil:0.0.5")
      implementation("org.jline:jline-terminal-ffm:3.27.1") // use ffm on java 22+
      implementation("org.jline:jline-terminal-jni:3.27.1") // fall back to jni on java 21
